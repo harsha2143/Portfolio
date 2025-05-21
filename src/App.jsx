@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground px-4 py-2 sm:p-5">
+    <div className="min-h-screen bg-background text-foreground w-screen max-w-full overflow-hidden px-2 py-2 sm:p-5">
       <Navbar />
       <main className="min-h-screen">
         <AnimatedSection>
@@ -50,8 +50,8 @@ function App() {
           <Contact />
         </AnimatedSection>
         
-        <Footer />
       </main>
+      <Footer />
     </div>
   );
 }
