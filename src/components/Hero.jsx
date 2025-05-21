@@ -120,8 +120,8 @@ const Hero = () => {
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 opacity-20 blur-2xl"></div>
               <div className="relative w-100% h-100% rounded-full border-2 border-blue-500/30 overflow-hidden">
                 <img
-                  src="./src/assets/Portfolio_img.jpg"
-                  alt="John Doe"
+                  src="/Portfolio_img.jpg"
+                  alt="Image"
                   className="object-cover w-70% h-70%"
                 />
               </div>
@@ -136,10 +136,7 @@ const Hero = () => {
                 }}
                 className="absolute -bottom-4 -right-4 bg-[#0a0a0a] p-4 rounded-lg shadow-lg border border-gray-800"
               >
-                {/* <div className="text-sm font-medium">
-                  <span className="text-gray-400">Experience</span>
-                  <div className="text-2xl font-bold text-blue-500">5+ Years</div>
-                </div> */}
+                
               </motion.div>
             </div>
           </motion.div>
