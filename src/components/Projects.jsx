@@ -12,22 +12,21 @@ function Projects() {
       githubLink: "https://github.com/codevoid048/codequest",
     },
     {
-      title: "HolidayHub",
-      description:"HolidayHub is a user-friendly holiday rental platform where travelers can explore, book, and review stays across diverse destinations. Hosts can effortlessly list and manage properties, connecting with a global audience through a seamless experience.",
-      image: "/projects/HolidayHub.png",
+      title: "Blog Post",
+      description:"Developed a full-stack blogging platform that enables users to publish, explore, and search categorized posts with dynamic content rendering, intuitive post creation, and responsive design enhancing engagement through interactive features and seamless navigation.",
+      image: "/projects/spotify-clone.png",
       tags: ["JavaScript", "Node.js", "Express.js", "MongoDB",'HTML5','CSS3'],
-      liveLink: "https://holidayhub-rsri.onrender.com/",
-      githubLink: "https://github.com/Chakri2759/HolidayHub",
+      liveLink: "",
+      githubLink: "https://github.com/harsha2143/Blog-post",
     },
     {
-      title: "Spotify Clone",
-      description:"Fully functional Spotify clone using Html, CSS and JavaScript",
-      image: "/projects/spotify-clone.png",
-      tags: ["HTML", "CSS", "JavaScript"],
-      liveLink: "https://spotify-clone-xi-ten-74.vercel.app/",
-      githubLink: "https://github.com/Chakri2759/Spotify-clone",
-    }
-    
+      title: "WeatherApp",
+      description:"Created a real-time weather app that shows accurate forecasts based on user location.Includes dynamic updates, clean UI, and responsive design for easy access to weather details.",
+      image: "/projects/Weather.png",
+      tags: ["JavaScript",'HTML5','CSS3','OpenWeatherMap API'],
+      liveLink: "",
+      githubLink: "https://github.com/harsha2143/CityWeatherApp",
+    },
   ];
 
   const container = {
@@ -157,10 +156,10 @@ function Projects() {
           className="text-center mt-12"
         >
           <a
-            href="https://github.com/Chakri2759"
+            href="https://github.com/harsha2143"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#111111] border border-gray-800 hover:border-blue-500/30 text-white px-6 py-3 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-blue-900/10"
+            className="inline-flex mb-16 items-center gap-2 bg-[#111111] border border-gray-800 hover:border-blue-500/30 text-white px-6 py-3 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-blue-900/10"
           >
             <Github size={18} />
             View More on GitHub

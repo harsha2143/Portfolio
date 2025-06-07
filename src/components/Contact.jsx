@@ -11,23 +11,23 @@ export default function Contact() {
     subject: "",
     message: "",
   })
-  
+
   const platforms = [
-    { 
-      name: "GitHub", 
+    {
+      name: "GitHub",
       icon: <Github size={20} />,
-      url: "https://github.com/Chakri2759" 
+      url: "https://github.com/harsha2143"
     },
-    { 
-      name: "LinkedIn", 
+    {
+      name: "LinkedIn",
       icon: <Linkedin size={20} />,
-      url: "https://linkedin.com/in/chakri555" 
+      url: "https://www.linkedin.com/in/harshavardhansaripalli/"
     },
-    
-    { 
-      name: "Instagram", 
+
+    {
+      name: "Instagram",
       icon: <Instagram size={20} />,
-      url: "https://instagram.com/chakri__ramisetti" 
+      url: "https://instagram.com/har_sha2143"
     }
   ];
 
@@ -58,19 +58,19 @@ export default function Contact() {
 
   const contactInfo = [
     {
-      icon: <Mail className="text-blue-500" size={24} />,
+      icon: <Mail className="text-[rgb(0,98,255)]" size={24} />,
       title: "Email",
-      value: "chakriramisetti555@gmail.com",
-      link: "https://mail.google.com/mail/?view=cm&fs=1&to=chakriramisetti555@gmail.com",
+      value: "harshavardhansaripalli21@gmail.com",
+      link: "https://mail.google.com/mail/?view=cm&fs=1&to=harshavardhansaripalli21@gmail.com",
     },
     {
-      icon: <Phone className="text-blue-500" size={24} />,
+      icon: <Phone className="text-[rgb(0,98,255)]" size={24} />,
       title: "Phone",
-      value: "+91 7981297137",
-      link: "tel:+917981297137",
+      value: "+91 9703663860",
+      link: "tel:+919703663860",
     },
     {
-      icon: <MapPin className="text-blue-500" size={24} />,
+      icon: <MapPin className="text-[rgb(0,98,255)]" size={24} />,
       title: "Location",
       value: "Bhimavaram, Andhra Pradesh",
       link: "https://www.google.com/maps/@16.5430852,81.4937469,17z?entry=ttu&g_ep=EgoyMDI1MDUxNS4wIKXMDSoASAFQAw%3D%3D",
@@ -80,11 +80,10 @@ export default function Contact() {
   return (
     <section id="contact" className="py-20 bg-[#0a0a0a] relative">
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-40 right-20 w-72 h-72 bg-blue-500/10 rounded-full filter blur-3xl"></div>
       </div>
 
       <div className="w-full px-4 md:px-6 relative z-10">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -107,56 +106,86 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="relative ml-12 mr-8 sm:ml-8 lg:ml-52 mr-6"
           >
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-blue-500">Contact Information</h3>
+            {/* Curved Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-950 to-gray-800 rounded-3xl backdrop-blur-sm border border-gray-700/30 shadow-2xl shadow-gray-900/20 -z-10"></div>
 
-            <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
-              {contactInfo.map((info, index) => (
-                <motion.div 
-                  key={index} 
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: index * 0.15,
-                    ease: [0.21, 0.47, 0.32, 0.98]
-                  }}
-                  className="flex items-start gap-3 sm:gap-4"
-                >
-                  <div className="p-2 sm:p-3 bg-[#111111] rounded-lg border border-gray-800">{info.icon}</div>
-                  <div>
-                    <h4 className="text-base sm:text-lg font-medium text-white">{info.title}</h4>
-                    <a
-                      href={info.link}
-                      className="text-gray-400 hover:text-blue-500 transition-colors duration-300 text-sm sm:text-base"
+            {/* Content Container */}
+            <div className="relative p-4 sm:p-4 lg:p-6">
+              {/* Contact Information Section */}
+              <div className="mb-8 ml-12 sm:mb-5 ml-2">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-6 sm:mb-6 text-transparent bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text">
+                  Contact Information
+                </h3>
+
+                <div className="space-y-5 sm:space-y-4">
+                  {contactInfo.map((info, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -50 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.6,
+                        delay: index * 0.15,
+                        ease: [0.21, 0.47, 0.32, 0.98]
+                      }}
+                      className="group flex items-start gap-2 sm:gap-2 sm:p-1 rounded-xl transition-all duration-300"
                     >
-                      {info.value}
-                    </a>
-                  </div>
-                </motion.div>
-              ))}
+                      <div className="flex-shrink-0 p-3 sm:p-4  rounded-xl group-hover:border-blue-400 group-hover:shadow-lg group-hover:shadow-blue-500/20 transition-all duration-300">
+                        <div className="text-blue-100 group-hover:text-blue-700 transition-colors duration-300">
+                          {info.icon}
+                        </div>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-base sm:text-md text-gray-500 mb-1 group-hover:text-white transition-colors duration-300">
+                          {info.title}
+                        </h4>
+                        <a
+                          href={info.link}
+                          className="text-white font-semibold hover:text-blue-800 transition-colors duration-300 text-sm sm:text-base break-words group-hover:text-blue-300"
+                        >
+                          {info.value}
+                        </a>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Social Media Section */}
+              <div>
+                <h3 className="text-lg sm:text-lg lg:text-lg font-bold mb-6 sm:mb-2 text-transparent bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text">
+                  Connect with me
+                </h3>
+
+                <div className="flex flex-wrap gap-3 sm:gap-4">
+                  {platforms.map((platform, index) => (
+                    <motion.a
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.6 + (index * 0.1), ease: [0.21, 0.47, 0.32, 0.98] }}
+                      href={platform.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-black/60 rounded-full border border-gray-700/50 text-white hover:text-[rgb(0,94,255)] hover:border-blue-500/100 hover:scale-210 hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 hover:rotate-3"
+                      aria-label={platform.name}
+                    >
+                      <div className="transform group-hover:scale-110 transition-transform duration-300 ">
+                        {platform.icon}
+                      </div>
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-blue-500">Follow Me</h3>
-            <div className="flex flex-wrap gap-2 sm:gap-4">
-              {platforms.map((platform, index) => (
-                <motion.a
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.6 + (index * 0.1), ease: [0.21, 0.47, 0.32, 0.98] }}
-                  href={platform.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-gray-900 rounded-full border border-gray-800 text-gray-300 hover:text-blue-500 hover:border-blue-500/30 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
-                  aria-label={platform.name}
-                >
-                  {platform.icon}
-                </motion.a>
-              ))}
-            </div>
+            {/* Decorative Elements */}
+            {/* <div className="absolute top-4 right-4 w-20 h-20 bg-blue-700/10 rounded-full blur-xl"></div>
+            <div className="absolute bottom-4 left-4 w-16 h-16 bg-blue-700/10 rounded-full blur-xl"></div> */}
           </motion.div>
 
           <motion.div
@@ -164,16 +193,17 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="relative ml-8 mr-8 sm:mr-16 lg:mr-28"
           >
             <h3 className="text-2xl font-bold mb-6 text-blue-500">Send Me a Message</h3>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <motion.div 
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.5, 
+                transition={{
+                  duration: 0.5,
                   delay: 0.2,
                   ease: [0.21, 0.47, 0.32, 0.98]
                 }}
@@ -215,8 +245,8 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.5, 
+                transition={{
+                  duration: 0.5,
                   delay: 0.3,
                   ease: [0.21, 0.47, 0.32, 0.98]
                 }}
@@ -240,8 +270,8 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.5, 
+                transition={{
+                  duration: 0.5,
                   delay: 0.4,
                   ease: [0.21, 0.47, 0.32, 0.98]
                 }}
@@ -265,8 +295,8 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.5, 
+                transition={{
+                  duration: 0.5,
                   delay: 0.5,
                   ease: [0.21, 0.47, 0.32, 0.98]
                 }}
@@ -288,7 +318,7 @@ export default function Contact() {
               </motion.button>
 
               {submitSuccess && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
