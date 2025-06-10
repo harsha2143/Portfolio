@@ -259,8 +259,9 @@ function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="py-16"
+          id="skills"
         >
-          <div className="text-center mb-12" id="skills">
+          <div className="text-center mb-12" >
             <h3 className="text-3xl font-bold mb-4">
               My <span className="text-blue-500" >Skills</span>
             </h3>
