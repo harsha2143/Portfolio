@@ -205,8 +205,7 @@ function About() {
                 <div className="flex-1">
                   <h4 className="text-xl font-bold text-white mb-2">Full Stack Developer</h4>
                   <p className="text-gray-300 text-base leading-relaxed">
-                    I am a passionate Full Stack Web Developer, specializing in building responsive, scalable, and user-centric web applications using the MERN stack. With a solid foundation in data structures and algorithms.
-                  </p>
+I am a passionate Full Stack Web Developer, specializing in building responsive, scalable, and user-centric web applications using the MERN stack. I have a solid foundation in data structures and algorithms, along with some practical experience with Machine Learning techniques to enhance functionality and user experience.                  </p>
                 </div>
               </div>
             </motion.div>
