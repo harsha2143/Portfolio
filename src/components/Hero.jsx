@@ -93,7 +93,7 @@ const Hero = () => {
                 href="https://drive.google.com/file/d/1l2fkKrABQoBKci_CYzcasjgtLXtb6e7m/view?usp=drive_link"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-full hover:shadow-[0_10px_25px_-5px_rgba(59,120,246,0.6)] transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-2 w-fit"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-3 rounded-full hover:shadow-[0_10px_25px_-5px_rgba(59,120,246,0.6)] transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-2 w-fit"
               >
                 View My Resume
                 <motion.svg

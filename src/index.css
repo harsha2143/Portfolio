@@ -51,3 +51,19 @@ body {
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
+
+@layer utilities {
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 1.3s linear infinite;
+  }
+}
+

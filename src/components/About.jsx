@@ -1,7 +1,6 @@
 import React from "react";
 import { motion, useAnimation } from "framer-motion";
 import { Calendar, Code, GraduationCap, Layers, Lightbulb, Rocket, User } from "lucide-react";
-import Skills from "../utils/Skills";
 
 // Skill Bar Component
 const SkillBar = ({ iconSrc, name, percentage, delay = 0 }) => {
@@ -43,7 +42,9 @@ const SkillBar = ({ iconSrc, name, percentage, delay = 0 }) => {
             initial={{ width: 0 }}
             animate={controls}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
+            {/* <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div> */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-800/90 to-transparent animate-shimmer" />
+
           </motion.div>
         </div>
       </div>
@@ -205,7 +206,7 @@ function About() {
                 <div className="flex-1">
                   <h4 className="text-xl font-bold text-white mb-2">Full Stack Developer</h4>
                   <p className="text-gray-300 text-base leading-relaxed">
-I am a passionate Full Stack Web Developer, specializing in building responsive, scalable, and user-centric web applications using the MERN stack. I have a solid foundation in data structures and algorithms, along with some practical experience with Machine Learning techniques to enhance functionality and user experience.                  </p>
+                I am a passionate Full Stack Web Developer, specializing in building responsive, scalable, and user-centric web applications using the MERN stack. I have a solid foundation in data structures and algorithms, along with some practical experience with Machine Learning techniques to enhance functionality and user experience.                  </p>
                 </div>
               </div>
             </motion.div>
