@@ -19,7 +19,7 @@ body {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -63,7 +63,7 @@ body {
   }
 
   .animate-shimmer {
-    animation: shimmer 1.3s linear infinite;
+    animation: shimmer 1s linear infinite;
   }
 }
 

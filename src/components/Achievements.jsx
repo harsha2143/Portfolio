@@ -70,7 +70,7 @@ const Achievements = () => {
   ];
 
   return (
-    <div className="bg-black min-h-screen py-20 px-4 -mx-5" id="achievements">
+    <div className="bg-black min-h-screen py-20 px-5 -mx-5" id="achievements">
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

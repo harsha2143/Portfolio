@@ -106,7 +106,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="relative ml-12 mr-8 sm:ml-8 lg:ml-52 mr-6"
+            className="relative ml-4 mr-4 sm:ml-8 mr-8 lg:ml-52 mr-6"
           >
             {/* Curved Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-950 to-gray-800 rounded-3xl backdrop-blur-sm border border-gray-700/30 shadow-2xl shadow-gray-900/20 -z-10"></div>
@@ -193,7 +193,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="relative ml-8 mr-8 sm:mr-16 lg:mr-28"
+            className="relative ml-4 mr-4 sm:mr-16 lg:mr-28"
           >
             <h3 className="text-2xl font-bold mb-6 text-blue-500">Send Me a Message</h3>
 
