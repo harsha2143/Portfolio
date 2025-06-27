@@ -46,7 +46,7 @@ function Navbar() {
       }`}
       style={{ width: "100%", maxWidth: "100vw" }}
     >
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div className="w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between">
         {/* Logo */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -64,7 +64,7 @@ function Navbar() {
         </motion.div>
 
         {/* Desktop Navigation */}
-        <div className="flex items-center flex-grow justify-center">
+        <div className="flex items-center flex-grow justify-end">
           <motion.nav
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -93,7 +93,7 @@ function Navbar() {
         >
           <a
             href="#contact"
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300 text-sm lg:text-base"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300 text-sm lg:text-base lg:ml-5"
           >
             Contact Me
           </a>
