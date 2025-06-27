@@ -54,7 +54,7 @@ const Experience = () => {
   const currentData = activeTab === 'experience' ? experiences : positions;
 
   return (
-    <div className="relative bg-black text-white py-16 px-4 min-h-screen mb-12 -mx-5" id="experience">
+    <div className="relative bg-black text-white py-16 px-4 min-h-screen mb-24 -mx-5" id="experience">
       {/* Background Elements - Fixed positioning */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         {/* <div className="absolute top-1/4 left-4/4 w-64 h-64 bg-blue-800 rounded-full mix-blend-normal filter blur-3xl opacity-0 animate-pulse"></div>

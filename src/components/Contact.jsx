@@ -221,7 +221,6 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-[#111111] border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
-                    placeholder="John Doe"
                   />
                 </div>
                 <div>
@@ -236,7 +235,6 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-[#111111] border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
-                    placeholder="john@example.com"
                   />
                 </div>
               </motion.div>
@@ -262,7 +260,6 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 bg-[#111111] border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
-                  placeholder="Project Inquiry"
                 />
               </motion.div>
 
@@ -287,7 +284,6 @@ export default function Contact() {
                   required
                   rows={5}
                   className="w-full px-4 py-3 bg-[#111111] border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white resize-none"
-                  placeholder="Hello, I'd like to talk about..."
                 ></textarea>
               </motion.div>
 

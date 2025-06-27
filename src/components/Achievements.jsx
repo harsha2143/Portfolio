@@ -79,7 +79,7 @@ const Achievements = () => {
               My <span className="text-blue-500" >Achievements</span>
             </h1>
             <div className="w-20 h-1 bg-blue-500 mx-auto mb-2"></div>
-            <p className="text-gray-300 max-w-2xl mx-5">
+            <p className="text-gray-300 max-w-2xl mx-auto">
               Recognition and milestones earned through consistent learning and problem-solving.
             </p>
           </div>
