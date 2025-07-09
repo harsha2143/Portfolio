@@ -4,26 +4,27 @@ import { ExternalLink, Github } from "lucide-react";
 function Projects() {
   const projects = [
     {
+      title: "Imagino",
+      description: "An AI-powered image generation web app developed using the MERN stack. It allows users to generate high-quality images simply by entering text prompts, making it easy to turn ideas into visuals using advanced AI models.",
+      tags: ["React.js", "Node.js", "MongoDB", "Express.js", "Tailwind CSS", "RazorPay"],
+      liveLink: "https://imagino-five.vercel.app/",
+      githubLink: "https://github.com/harsha2143/imagino",
+    },
+    {
       title: "CodeQuest",
-      description:"A POTD platform that offers daily coding challenges tailored for college students, promoting consistent problem-solving. It features multi-platform progress tracking, streak monitoring, leaderboards, and insightful user analytics to boost engagement and learning.",
+      description: "A POTD platform that offers daily coding challenges tailored for college students, promoting consistent problem-solving. It features multi-platform progress tracking, streak monitoring, leaderboards, and insightful user analytics to boost engagement and learning.",
       tags: ["Typescript", "Node.js", "MongoDB", "Express.js", "Tailwind CSS"],
       liveLink: "#",
       githubLink: "https://github.com/codevoid048/codequest",
     },
     {
       title: "Blog Post",
-      description:"Developed a full-stack blogging platform that enables users to publish, explore, and search categorized posts with dynamic content rendering, intuitive post creation, and responsive design enhancing engagement through interactive features and seamless navigation.",
-      tags: ["JavaScript", "Node.js", "Express.js", "MongoDB",'HTML5','CSS3'],
+      description: "Developed a full-stack blogging platform that enables users to publish, explore, and search categorized posts with dynamic content rendering, intuitive post creation, and responsive design enhancing engagement through interactive features and seamless navigation.",
+      tags: ["JavaScript", "Node.js", "Express.js", "MongoDB", 'HTML5', 'CSS3'],
       liveLink: "",
       githubLink: "https://github.com/harsha2143/Blog-post",
     },
-    {
-      title: "WeatherApp",
-      description:"Created a real-time weather app that shows accurate forecasts based on user location.Includes dynamic updates, clean UI, and responsive design for easy access to weather details.",
-      tags: ["JavaScript",'HTML5','CSS3','OpenWeatherMap API'],
-      liveLink: "",
-      githubLink: "https://github.com/harsha2143/CityWeatherApp",
-    },
+
   ];
 
   const container = {
@@ -79,7 +80,7 @@ function Projects() {
             worked on.
           </p>
         </motion.div>
-        
+
         <motion.div
           variants={container}
           initial="hidden"
@@ -121,11 +122,11 @@ function Projects() {
                   </a>
                 </div>
               </div>
-              
+
               <p className="text-gray-400 mb-10 text-sm leading-relaxed">
                 {project.description}
               </p>
-              
+
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag, idx) => (
                   <span
