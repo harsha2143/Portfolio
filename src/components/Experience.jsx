@@ -5,6 +5,16 @@ const Experience = () => {
 
   const positions = [
     {
+      title: "Core Body Representative",
+      company: "SRKR Coding Club",
+      date: "Present",
+      description: [
+        "Represented the coding club in the executive body, coordinating between members and leadership to support club activities and initiatives.",
+        "Organized events and workshops to promote coding skills and foster active participation, while collaborating with team members to plan and execute technical sessions that encouraged learning and growth within the community."
+
+      ]
+    },
+    {
       title: "Technical Lead",
       company: "SRKR Coding Club",
       date: "Feb 2025",
@@ -13,28 +23,17 @@ const Experience = () => {
         "Led the technical team by assigning tasks, guiding members, and encouraging teamwork to successfully complete the contest."
       ]
 
-    },
-    {
-      title: "Executive Body Representative",
-      company: "SRKR Coding Club",
-      date: "Present",
-      description: [
-        "Represented the coding club in the executive body, coordinating between members and leadership to support club activities and initiatives.",
-        "Organized events and workshops to promote coding skills and foster active participation, while collaborating with team members to plan and execute technical sessions that encouraged learning and growth within the community."
-
-      ]
-
     }
   ];
 
   const experiences = [
     {
       title: "Full Stack Development Intern",
-      company: "IIDT BlackBucks",
-      date: "May 2025 - Present",
+      company: "BlackBucks Private Limited",
+      date: "May 2025 - July 2025",
       description: [
-        "Updated the website design using Next.js and Tailwind CSS to make it faster, responsive, and easier to use on all devices.",
-        "Built APIs with Node.js and Express, connected the React frontend with the backend, and managed data using MongoDB for smooth app performance."
+        "Developed FreelanceNex, a comprehensive full-stack freelancing platform built with the MERN stack,implementing secure JWT-based authentication and detailed role-based access control for freelancers and clients.",
+        "Built APIs with Node.js and Express, Core features include job posting and proposal submission, enhancing platform functionality. ResponsiveReact.js and Tailwind CSS frontends support user registration, login, profile creation, and project management."
       ]
 
 

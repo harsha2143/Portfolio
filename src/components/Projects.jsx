@@ -14,7 +14,7 @@ function Projects() {
       title: "CodeQuest",
       description: "A POTD platform that offers daily coding challenges tailored for college students, promoting consistent problem-solving. It features multi-platform progress tracking, streak monitoring, leaderboards, and insightful user analytics to boost engagement and learning.",
       tags: ["Typescript", "Node.js", "MongoDB", "Express.js", "Tailwind CSS"],
-      liveLink: "#",
+      liveLink: "https://codequest.srkrcodingclub.in/",
       githubLink: "https://github.com/codevoid048/codequest",
     },
     {
