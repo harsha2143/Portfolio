@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { href } from "react-router-dom";
 
 const navItems = [
   { name: "Home", href: "#home" },
@@ -8,6 +9,7 @@ const navItems = [
   { name: "Experience", href: "#experience" },
   { name: "Projects", href: "#projects" },
   { name: "Skills", href: "#skills" },
+  { name: "Blogs", href: "#Blogs"},
   { name: "Achievements", href: "#achievements" },
 ];
 
