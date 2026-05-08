@@ -16,16 +16,16 @@ export default function BlogDetails() {
 
   return (
     <section className="min-h-screen bg-[#0f172a] text-white px-6 md:px-16 py-20">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <Link
           to="/"
-          className="text-purple-400 hover:text-purple-300 transition"
+          className="text-blue-500 hover:text-blue-400 transition"
         >
           ← Back to Blogs
         </Link>
 
         <div className="mt-10">
-          <span className="px-4 py-1 rounded-full bg-purple-500/10 text-purple-400 text-sm border border-purple-500/20">
+          <span className="px-4 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm border border-purple-500/20">
             {blog.category}
           </span>
 

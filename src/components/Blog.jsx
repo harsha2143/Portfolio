@@ -30,7 +30,7 @@ export default function Blog() {
                         <Link
                             to={`/blog/${blog.slug}`}
                             key={blog.id}
-                            className="group border border-white/10 rounded-3xl p-8 hover:border-blue-500 hover:bg-white/5 transition-all duration-300"
+                            className="group border border-white/10 rounded-3xl p-6 hover:border-blue-500 hover:bg-white/5 transition-all duration-300"
                         >
                             {/* Top Meta */}
                             {/* <div className="flex items-center justify-between mb-6">
@@ -44,16 +44,16 @@ export default function Blog() {
                             </div> */}
 
                             {/* Title */}
-                            <h3 className="text-xl font-bold leading-snug transition-all duration-300 group-hover:text-blue-400 flex items-center justify-between mb-2">
+                            <h3 className="text-xl font-bold leading-snug transition-all duration-300 group-hover:text-blue-400 flex items-cenr justify-between">
                                 {blog.title}
-                                <span className="text-blue-300 text-2xl transition-transform duration-300 group-hover:translate-x-1 mb-2">
+                                <span className="text-blue-300 text-3xl transition-transform duration-300 group-hover:translate-x-1 -mt-2">
                                     →
                                 </span>
                             </h3>
                             
 
                             {/* Description */}
-                            <p className="text-gray-400 mt-4 leading-relaxed">
+                            <p className="text-gray-400 mt-2 leading-relaxed">
                                 {blog.description}
                             </p>
 
