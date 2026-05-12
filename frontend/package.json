@@ -12,11 +12,15 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@tailwindcss/typography": "^0.5.19",
+    "axios": "^1.16.0",
     "framer-motion": "^12.12.1",
     "lucide-react": "^0.511.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-markdown": "^10.1.0",
     "react-router-dom": "^7.15.0",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {

@@ -7,7 +7,8 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Blog from "./components/Blog";
-import AllBlogs from "./components/AllBolgs";
+import AllBlogs from "./components/AllBlogs";
+import SubCategoryBlogs from "./components/SubCategoryBlogs";
 import BlogDetails from "./components/BlogDetails";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
@@ -15,6 +16,9 @@ import Achievements from "./components/Achievements";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import AnimatedSection from "./components/AnimatedSection";
+import AdminLogin from "./components/Admin/AdminLogin";
+import AdminDashboard from "./components/Admin/AdminDashboard";
+import BlogEditor from "./components/Admin/BlogEditor";
 
 // Metadata object
 const metadata = {
@@ -87,9 +91,16 @@ function App() {
         <Route path="/" element={<HomePage />} />
 
         <Route path="/blogs" element={<AllBlogs />} />
+        <Route path="/blogs/:mainCategory/:subCategory" element={<SubCategoryBlogs />} />
         
         {/* Blog Details Page */}
         <Route path="/blog/:slug" element={<BlogDetails />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/blogs/new" element={<BlogEditor />} />
+        <Route path="/admin/blogs/edit/:id" element={<BlogEditor />} />
       </Routes>
     </div>
   );

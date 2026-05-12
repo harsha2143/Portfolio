@@ -1,9 +1,4 @@
-node_modules
-.env
-dist
-dist-ssr
-.vite
-*.local
+# Logs
 logs
 *.log
 npm-debug.log*
@@ -12,6 +7,12 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -21,3 +22,8 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+.env
+
+# Backend
+backend/node_modules
+backend/.env
