@@ -269,11 +269,11 @@ async function seed() {
 
     // Create admin user
     await User.create({
-      username: "admin",
-      email: "admin@portfolio.com",
-      password: "admin123",
+      username: "Harshaadmin",
+      email: "admin@harshaportfolio.com",
+      password: "Harsha@2143",
     });
-    console.log("Admin user created (email: admin@portfolio.com, password: admin123)");
+    console.log("Admin user created (email: admin@harshaportfolio.com, password: Harsha@2143)");
 
     // Create blogs
     await Blog.insertMany(blogs);
