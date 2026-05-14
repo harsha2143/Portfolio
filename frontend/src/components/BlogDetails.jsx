@@ -32,11 +32,13 @@ function getText(children) {
   return "";
 }
 
-function HeadingRenderer({ level, children, ...props }) {
-  const text = getText(children);
-  const id = slugify(text);
-  const Tag = `h${level}`;
-  return <Tag id={id} {...props}>{children}</Tag>;
+function createHeadingRenderer(level) {
+  return function HeadingRenderer({ children, ...props }) {
+    const text = getText(children);
+    const id = slugify(text);
+    const Tag = `h${level}`;
+    return <Tag id={id} {...props}>{children}</Tag>;
+  };
 }
 
 function buildFileTree(grouped, allBlogs) {
@@ -220,9 +222,9 @@ function BlogContentView({ blog }) {
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
-            h1: HeadingRenderer,
-            h2: HeadingRenderer,
-            h3: HeadingRenderer,
+            h1: createHeadingRenderer(1),
+            h2: createHeadingRenderer(2),
+            h3: createHeadingRenderer(3),
           }}
         >
           {blog.content}
