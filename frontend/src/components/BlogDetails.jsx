@@ -51,7 +51,6 @@ function buildFileTree(grouped, allBlogs) {
     const mainNode = { name: mc, type: "folder", children: [], count: mcBlogs.length };
 
     for (const [rawSub, subBlogs] of Object.entries(subs)) {
-      // Split multi-value subCategories on "||"
       const multiSubs = rawSub.split(/\s*\|\|\s*/);
       for (const singleSub of multiSubs) {
         const parts = singleSub.split(/\s*>\s*/);
@@ -76,7 +75,6 @@ function buildFileTree(grouped, allBlogs) {
       }
     }
 
-    // Blogs directly under mainCategory with no subCategory
     const directBlogs = mcBlogs.filter((b) => !b.subCategory);
     for (const blog of directBlogs) {
       if (!mainNode.children.find((n) => n.type === "file" && n.slug === blog.slug)) {
@@ -110,6 +108,27 @@ function Chevron({ open }) {
   );
 }
 
+function FileIcon() {
+  return (
+    <svg className="w-4 h-4 shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+    </svg>
+  );
+}
+
+function FolderIcon({ open }) {
+  return (
+    <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+      {open ? (
+        <path d="M5 19a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v1M5 19h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2z" />
+      ) : (
+        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-6l-2-2H5a2 2 0 0 0-2 2z" />
+      )}
+    </svg>
+  );
+}
+
 function FileTree({ nodes, depth, catOpen, toggleCat, onSelectFile, activeSlug }) {
   return nodes.map((node, i) => {
     const key = node.name + depth + i;
@@ -119,35 +138,37 @@ function FileTree({ nodes, depth, catOpen, toggleCat, onSelectFile, activeSlug }
         <div key={key}>
           <button
             onClick={() => onSelectFile(node.blog)}
-            className={`w-full flex items-center gap-2 text-sm py-1 transition-colors text-left hover:text-gray-300 ${
-              activeSlug === node.slug ? "text-blue-400" : "text-gray-500"
+            className={`w-full flex items-center gap-2 py-1.5 px-2 rounded-lg text-xs transition-all text-left ${
+              activeSlug === node.slug
+                ? "bg-blue-500/10 text-blue-400 border-l-2 border-blue-500"
+                : "text-gray-400 hover:text-gray-200 hover:bg-white/[0.04]"
             }`}
-            style={{ paddingLeft: `${depth * 16 + 20}px` }}
+            style={{ paddingLeft: `${depth * 16 + 12}px` }}
           >
-            <span className="text-xs shrink-0">📄</span>
-            <span className="truncate">{node.name}</span>
+            <FileIcon />
+            <span className="truncate text-xs">{node.name}</span>
           </button>
         </div>
       );
     }
 
-    // Folder
     const isOpen = catOpen[key] !== false;
-    const isActive = false;
 
     return (
       <div key={key}>
         <button
           onClick={() => toggleCat(key)}
-          className={`w-full flex items-center gap-2 text-sm py-1 transition-colors text-left hover:text-gray-300 ${
-            isActive ? "text-blue-400" : depth === 0 ? "text-gray-200 font-medium" : "text-gray-500"
+          className={`w-full flex items-center gap-2 py-1.5 px-2 rounded-lg text-xs transition-all text-left ${
+            depth === 0
+              ? "text-gray-300 hover:text-white hover:bg-white/[0.04] font-medium"
+              : "text-gray-400 hover:text-gray-200 hover:bg-white/[0.04]"
           }`}
-          style={{ paddingLeft: `${depth * 16}px` }}
+          style={{ paddingLeft: `${depth * 16 + 4}px` }}
         >
           <Chevron open={isOpen} />
-          <span className="text-xs shrink-0">{isOpen ? "📂" : "📁"}</span>
-          <span className="truncate">{node.name}</span>
-          <span className="text-xs text-gray-700 ml-auto shrink-0">({node.count})</span>
+          <FolderIcon open={isOpen} />
+          <span className="truncate text-xs">{node.name}</span>
+          <span className="text-[10px] text-gray-600 ml-auto shrink-0">{node.count}</span>
         </button>
         {isOpen && node.children.length > 0 && (
           <FileTree
@@ -191,25 +212,41 @@ function BlogContentView({ blog }) {
   }, [headings]);
 
   return (
-    <article>
+    <article className="max-w-3xl mx-auto">
       <header className="mb-10">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+        <div className="flex items-center gap-2 text-xs text-gray-500 mb-4">
+          <span className="text-blue-400">{blog.mainCategory || "General"}</span>
+          {blog.subCategory && (
+            <>
+              <span className="text-gray-600">/</span>
+              <span>{blog.subCategory}</span>
+            </>
+          )}
+        </div>
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white">
           {blog.title}
         </h1>
-        <p className="text-gray-400 text-lg mt-6 leading-relaxed">
+        <p className="text-gray-400 text-base mt-5 leading-relaxed">
           {blog.description}
         </p>
-        <div className="flex items-center gap-4 mt-6 text-sm text-gray-500 border-b border-white/10 pb-6">
-          <span>{new Date(blog.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
-          <span className="w-1 h-1 rounded-full bg-gray-700"></span>
-          <span>{blog.readTime}</span>
+        <div className="flex items-center gap-3 mt-5 text-xs border-b border-white/5 pb-5">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-[10px] font-bold text-white">
+              H
+            </div>
+            <span className="text-gray-300">Harshavardhan</span>
+          </div>
+          <span className="w-1 h-1 rounded-full bg-gray-600"></span>
+          <span className="text-gray-500">{new Date(blog.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
+          <span className="w-1 h-1 rounded-full bg-gray-600"></span>
+          <span className="text-gray-500">{blog.readTime}</span>
         </div>
       </header>
 
       <div className="prose prose-invert prose-lg max-w-none
         prose-headings:text-white prose-headings:font-bold
-        prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:scroll-mt-24
-        prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4 prose-h3:scroll-mt-24
+        prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:scroll-mt-24
+        prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3 prose-h3:scroll-mt-24
         prose-p:text-gray-300 prose-p:leading-8 prose-p:mt-4
         prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300
         prose-strong:text-white
@@ -235,7 +272,6 @@ function BlogContentView({ blog }) {
 }
 
 function OnThisPage({ headings }) {
-  const [open, setOpen] = useState(true);
   const [activeId, setActiveId] = useState(null);
 
   useEffect(() => {
@@ -260,42 +296,32 @@ function OnThisPage({ headings }) {
   if (!headings.length) return null;
 
   return (
-    <div className="border border-white/10 rounded-xl overflow-hidden sticky top-24">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] transition-colors"
-      >
-        <span className="text-sm font-semibold text-gray-300">On this page</span>
-        <Chevron open={open} />
-      </button>
-      {open && (
-        <nav className="px-4 py-3 space-y-1 max-h-[70vh] overflow-y-auto">
-          {headings.map((h, i) => (
-            <a
-              key={i}
-              href={`#${h.id}`}
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById(h.id)?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className={`block text-sm py-1 transition-colors ${
-                h.level === 1
-                  ? "pl-0 text-gray-300 font-medium"
-                  : h.level === 2
-                  ? "pl-4 text-gray-500"
-                  : "pl-8 text-gray-600"
-              } ${
-                activeId === h.id
-                  ? "text-blue-400 border-l-2 border-blue-400 -ml-4 pl-[calc(1rem-2px)]"
-                  : "hover:text-gray-300"
-              }`}
-            >
-              {h.text}
-            </a>
-          ))}
-        </nav>
-      )}
-    </div>
+    <nav className="space-y-0.5">
+      {headings.map((h, i) => (
+        <a
+          key={i}
+          href={`#${h.id}`}
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById(h.id)?.scrollIntoView({ behavior: "smooth" });
+          }}
+          className={`block text-xs py-1 px-2.5 rounded-lg transition-all ${
+            h.level === 1
+              ? "text-gray-300 font-medium"
+              : h.level === 2
+              ? "text-gray-500"
+              : "text-gray-600"
+          } ${
+            activeId === h.id
+              ? "text-blue-400 bg-blue-500/10 font-medium"
+              : "hover:text-gray-200 hover:bg-white/[0.03]"
+          }`}
+          style={{ paddingLeft: `${12 + (h.level - 1) * 16}px` }}
+        >
+          {h.text}
+        </a>
+      ))}
+    </nav>
   );
 }
 
@@ -344,124 +370,113 @@ export default function BlogDetails() {
     setCatOpen((p) => ({ ...p, [key]: p[key] === false ? true : false }));
   }, []);
 
-  const { prev, next } = useMemo(() => {
-    const idx = allBlogs.findIndex((b) => b.slug === slug);
-    return {
-      prev: idx > 0 ? allBlogs[idx - 1] : null,
-      next: idx < allBlogs.length - 1 ? allBlogs[idx + 1] : null,
-    };
-  }, [allBlogs, slug]);
-
   if (loading) {
     return (
-      <section className="min-h-screen bg-[#0f172a] text-white px-6 md:px-16 py-20 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      <section className="h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          <span className="text-sm text-gray-500">Loading blog...</span>
+        </div>
       </section>
     );
   }
 
   if (error || !blog) {
     return (
-      <section className="min-h-screen bg-[#0f172a] text-white px-6 md:px-16 py-20 flex flex-col items-center justify-center gap-4">
+      <section className="h-screen bg-[#0a0a0a] text-white flex flex-col items-center justify-center gap-5">
+        <div className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center">
+          <svg className="w-7 h-7 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
         <p className="text-gray-400 text-lg">{error || "Blog not found"}</p>
-        <Link to="/blogs" className="text-blue-400 hover:text-blue-300 transition-colors">
-          ← Back to Blogs
+        <Link to="/blogs" className="inline-flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors bg-blue-500/10 hover:bg-blue-500/20 px-4 py-2 rounded-lg">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Blogs
         </Link>
       </section>
     );
   }
 
   return (
-    <section className="min-h-screen bg-[#0f172a] text-white px-4 md:px-16 py-20">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-6">
-          <Link to="/blogs" className="text-blue-400 hover:text-blue-300 transition-colors text-sm inline-block">
-            ← Back to Blogs
+    <div className="h-screen bg-[#020617] text-white flex flex-col overflow-hidden">
+      {/* Top bar */}
+      <div className="shrink-0 border-b border-white/5 bg-white/[0.02]">
+        <div className="max-w-[1600px] mx-auto px-4 md:px-8 flex items-center h-12 gap-4">
+          <Link
+            to="/blogs"
+            className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-blue-400 transition-colors shrink-0"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            All Blogs
           </Link>
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-          {/* ====== LEFT SIDEBAR — File Tree ====== */}
-          <aside className="lg:w-64 shrink-0 order-2 lg:order-1">
-            <div className="space-y-6 sticky top-24">
-              <div className="border border-white/10 rounded-xl overflow-hidden">
-                <div className="px-4 py-3 bg-white/[0.03] border-b border-white/5">
-                  <span className="text-sm font-semibold text-gray-300">Explorer</span>
-                </div>
-                <nav className="px-3 py-3 max-h-[70vh] overflow-y-auto">
-                  <div className="space-y-0.5">
-                    <Link
-                      to="/blogs"
-                      className="flex items-center gap-2 text-sm py-1 text-gray-400 hover:text-gray-200 transition-colors"
-                    >
-                      {/* <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                      </svg>
-                      All Blogs */}
-                    </Link>
-                    <FileTree
-                      nodes={fileTree}
-                      depth={0}
-                      catOpen={catOpen}
-                      toggleCat={toggleCat}
-                      onSelectFile={handleSelectFile}
-                      activeSlug={activeBlog?.slug}
-                    />
-                  </div>
-                </nav>
-              </div>
-
-              {/* {activeBlog && (
-                <div className="border border-white/10 rounded-xl divide-y divide-white/10">
-                  {prev ? (
-                    <Link to={`/blog/${prev.slug}`} className="flex flex-col gap-0.5 px-4 py-3 hover:bg-white/[0.03] transition-colors group">
-                      <span className="text-xs text-gray-600">← Previous</span>
-                      <span className="text-sm text-gray-300 group-hover:text-blue-400 transition-colors truncate">{prev.title}</span>
-                    </Link>
-                  ) : (
-                    <div className="px-4 py-3 opacity-30">
-                      <span className="text-xs text-gray-600">← Previous</span>
-                      <p className="text-sm text-gray-500 truncate">No older post</p>
-                    </div>
-                  )}
-                  {next ? (
-                    <Link to={`/blog/${next.slug}`} className="flex flex-col gap-0.5 px-4 py-3 hover:bg-white/[0.03] transition-colors group">
-                      <span className="text-xs text-gray-600">Next →</span>
-                      <span className="text-sm text-gray-300 group-hover:text-blue-400 transition-colors truncate">{next.title}</span>
-                    </Link>
-                  ) : (
-                    <div className="px-4 py-3 opacity-30">
-                      <span className="text-xs text-gray-600">Next →</span>
-                      <p className="text-sm text-gray-500 truncate">No newer post</p>
-                    </div>
-                  )}
-                </div>
-              )} */}
-            </div>
-          </aside>
-
-          {/* ====== MAIN CONTENT ====== */}
-          <main className="flex-1 min-w-0 order-3 lg:order-2">
-            {activeBlog ? (
-              <BlogContentView blog={activeBlog} />
-            ) : (
-              <div className="text-center text-gray-500 py-20">
-                Select a file from the explorer to view a blog.
-              </div>
-            )}
-          </main>
-
-          {/* ====== RIGHT SIDEBAR ====== */}
-          <aside className="lg:w-64 shrink-0 order-1 lg:order-3">
-            {activeBlog && <OnThisPage headings={headings} />}
-            {!activeBlog && (
-              <div className="border border-white/10 rounded-xl p-5 sticky top-24 text-center">
-                <p className="text-gray-500 text-sm">Select a post to see its table of contents.</p>
-              </div>
-            )}
-          </aside>
+          <span className="text-gray-600 text-xs">/</span>
+          <span className="text-xs text-gray-300 truncate">{blog.title}</span>
         </div>
       </div>
-    </section>
+
+      {/* 3-column layout */}
+      <div className="flex-1 flex overflow-hidden gap-6 px-4 md:px-8 py-6">
+        {/* LEFT: Explorer — card style, sticky, no scroll */}
+        <aside className="w-60 xl:w-64 shrink-0 hidden lg:block">
+          <div className="border border-white/10 rounded-xl overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 bg-white/[0.02] border-b border-white/5">
+              <span className="text-xs font-semibold tracking-wider text-gray-500 uppercase">Explorer</span>
+              <span className="text-[11px] text-gray-600">{allBlogs.length} items</span>
+            </div>
+            <nav className="px-3 py-3 space-y-0.5">
+              <FileTree
+                nodes={fileTree}
+                depth={0}
+                catOpen={catOpen}
+                toggleCat={toggleCat}
+                onSelectFile={handleSelectFile}
+                activeSlug={activeBlog?.slug}
+              />
+            </nav>
+          </div>
+        </aside>
+
+        {/* CENTER: Blog Content — scrollable */}
+        <main className="flex-1 min-w-0 overflow-y-auto">
+          {activeBlog ? (
+            <div className="py-4">
+              <BlogContentView blog={activeBlog} />
+            </div>
+          ) : (
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center">
+                <div className="w-16 h-16 mx-auto rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center mb-4">
+                  <svg className="w-7 h-7 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <p className="text-gray-500 text-sm">Select a post from the explorer</p>
+              </div>
+            </div>
+          )}
+        </main>
+
+        {/* RIGHT: On This Page — card style, sticky, no scroll */}
+        <aside className="w-56 xl:w-60 shrink-0 hidden lg:block">
+          <div className="border border-white/10 rounded-xl overflow-hidden">
+            <div className="px-4 py-3 bg-white/[0.02] border-b border-white/5">
+              <span className="text-xs font-semibold tracking-wider text-gray-500 uppercase">On This Page</span>
+            </div>
+            <nav className="px-3 py-3">
+              {activeBlog ? (
+                <OnThisPage headings={headings} />
+              ) : (
+                <p className="text-gray-600 text-sm text-center py-8">Select a post to see its table of contents.</p>
+              )}
+            </nav>
+          </div>
+        </aside>
+      </div>
+    </div>
   );
 }

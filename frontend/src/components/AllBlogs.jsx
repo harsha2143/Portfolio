@@ -31,7 +31,7 @@ export default function AllBlogs() {
   }
 
   return (
-    <section className="min-h-screen bg-[#0f172a] text-white py-20 px-6 md:px-16">
+    <section className="min-h-screen bg-[#030712] text-white py-20 px-6 md:px-16">
       <div className="max-w-7xl mx-auto">
         <div className="mb-16">
           <Link
