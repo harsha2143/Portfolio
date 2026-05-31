@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-[100vh] flex items-center bg-gradient-to-br from-black to-[#0a1a3d] overflow-hidden -mx-5 -mt-5"
+      className="min-h-[100vh] flex items-center bg-gradient-to-br from-black to-[#0a1a3d] overflow-hidden"
     >
       <div className="w-full mx-8 mt-20 px-4 md:px-6 z-10">
         <div className="flex flex-col lg:flex-row items-center">

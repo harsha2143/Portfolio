@@ -82,7 +82,7 @@ export default function Contact() {
       <div className="absolute inset-0 z-0">
       </div>
 
-      <div className="w-full px-4 md:px-6 relative z-10">
+      <div className="w-full md:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -94,7 +94,7 @@ export default function Contact() {
             Get In <span className="text-blue-500">Touch</span>
           </h2>
           <div className="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
-          <p className="text-gray-300 max-w-2xl mx-auto">
+          <p className="text-gray-300 max-w-2xl mx-auto p-2">
             Have a project in mind or want to discuss potential opportunities? Feel free to reach out to me using the
             contact form below.
           </p>
@@ -112,7 +112,7 @@ export default function Contact() {
             <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-950 to-gray-800 rounded-3xl backdrop-blur-sm border border-gray-700/30 shadow-2xl shadow-gray-900/20 -z-10"></div>
 
             {/* Content Container */}
-            <div className="relative p-4 sm:p-4 lg:p-6">
+            <div className="relative p-4 sm:p-4 lg:p-8">
               {/* Contact Information Section */}
               <div className="mb-8 ml-12 sm:mb-5 ml-2">
                 <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-6 sm:mb-6 text-transparent bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text">

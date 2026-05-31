@@ -16,7 +16,7 @@ export default function Blog() {
 
   if (loading) {
     return (
-      <section id="Blogs" className="w-xl bg-[#0f172a] text-white py-20 px-6 md:px-16 -mx-5">
+      <section id="Blogs" className="w-xl bg-[#0f172a] text-white py-20 px-6 md:px-16">
         <div className="flex items-center justify-center min-h-[200px]">
           <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
         </div>
@@ -26,7 +26,7 @@ export default function Blog() {
 
   if (error) {
     return (
-      <section id="Blogs" className="w-xl bg-[#0f172a] text-white py-20 px-6 md:px-16 -mx-5">
+      <section id="Blogs" className="w-xl bg-[#0f172a] text-white py-20 px-6 md:px-16">
         <div className="text-center text-gray-400">{error}</div>
       </section>
     );
@@ -34,14 +34,14 @@ export default function Blog() {
 
   if (!blogs.length) {
     return (
-      <section id="Blogs" className="w-xl bg-[#0f172a] text-white py-20 px-6 md:px-16 -mx-5">
+      <section id="Blogs" className="w-xl bg-[#0f172a] text-white py-20 px-6 md:px-16 ">
         <div className="text-center text-gray-400">No blogs yet. Check back soon!</div>
       </section>
     );
   }
 
   return (
-    <section id="Blogs" className="w-xl bg-[#0f172a] text-white py-20 px-6 md:px-16 -mx-5">
+    <section id="Blogs" className="w-xl bg-[#0f172a] text-white py-20 px-6 md:px-16">
       <div className="max-w-8xl">
         <div className="mb-8">
           <p className="text-sm uppercase tracking-[0.3em] text-blue-400 mb-3">
@@ -50,9 +50,11 @@ export default function Blog() {
           <h2 className="text-3xl md:text-4xl font-bold leading-tight">
             Thoughts, tutorials <span className="text-blue-500">& learnings</span>
           </h2>
+          <div className="w-60 h-2 bg-blue-500 mb-8 mt-6"></div>
           <p className="text-gray-400 mt-4 text-lg max-w-3xl">
             Sharing insights from my development journey, AI projects, and web technologies.
           </p>
+          
         </div>
         
 

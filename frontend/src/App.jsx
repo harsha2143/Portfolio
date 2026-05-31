@@ -85,7 +85,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground w-screen max-w-full overflow-hidden px-2 py-2 sm:p-5">
+    <div className="min-h-screen bg-background text-foreground w-screen max-w-full overflow-hidden">
       <Routes>
         {/* Home Page */}
         <Route path="/" element={<HomePage />} />
