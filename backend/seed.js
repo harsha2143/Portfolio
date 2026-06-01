@@ -268,12 +268,7 @@ async function seed() {
     await Blog.deleteMany({});
 
     // Create admin user
-    await User.create({
-      username: "Harshaadmin",
-      email: "admin@harshaportfolio.com",
-      password: "Harsha@2143",
-    });
-    console.log("Admin user created (email: admin@harshaportfolio.com, password: Harsha@2143)");
+
 
     // Create blogs
     await Blog.insertMany(blogs);

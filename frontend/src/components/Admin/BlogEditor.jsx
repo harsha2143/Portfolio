@@ -46,6 +46,7 @@ export default function BlogEditor() {
     subCategories: [""],
     readTime: "5 min read",
     published: true,
+    tags: [],
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -68,6 +69,7 @@ export default function BlogEditor() {
             subCategories: subs,
             readTime: b.readTime,
             published: b.published,
+            tags: b.tags || [],
           });
         })
         .catch(() => navigate("/admin/dashboard"))
@@ -103,6 +105,21 @@ export default function BlogEditor() {
     });
   };
 
+  const handleTagKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      const val = e.target.value.trim();
+      if (val && !form.tags.includes(val)) {
+        setForm((prev) => ({ ...prev, tags: [...prev.tags, val] }));
+      }
+      e.target.value = "";
+    }
+  };
+
+  const removeTag = (idx) => {
+    setForm((prev) => ({ ...prev, tags: prev.tags.filter((_, i) => i !== idx) }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -111,6 +128,7 @@ export default function BlogEditor() {
     const payload = {
       ...form,
       subCategory: form.subCategories.filter(Boolean).join(" || "),
+      tags: form.tags,
     };
     delete payload.subCategories;
 
@@ -269,6 +287,35 @@ export default function BlogEditor() {
                     ))}
                   </div>
                 )}
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="block text-sm text-gray-400">Tags</label>
+                </div>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {form.tags.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300"
+                    >
+                      {tag}
+                      <button
+                        type="button"
+                        onClick={() => removeTag(idx)}
+                        className="text-blue-400 hover:text-blue-200 transition-colors"
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  ))}
+                </div>
+                <input
+                  type="text"
+                  placeholder="Type a tag and press Enter or comma"
+                  onKeyDown={handleTagKeyDown}
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                />
               </div>
 
               <div>

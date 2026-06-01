@@ -229,6 +229,18 @@ function BlogContentView({ blog }) {
         <p className="text-gray-400 text-base mt-5 leading-relaxed">
           {blog.description}
         </p>
+        {blog.tags && blog.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-4">
+            {blog.tags.map((tag, idx) => (
+              <span
+                key={idx}
+                className="text-xs px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
         <div className="flex items-center gap-3 mt-5 text-xs border-b border-white/5 pb-5">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-[10px] font-bold text-white">
