@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getBlogsBySubCategory } from "../services/api";
+import Navbar from "./Navbar";
 
 export default function SubCategoryBlogs() {
   const { mainCategory, subCategory } = useParams();
@@ -19,17 +20,23 @@ export default function SubCategoryBlogs() {
 
   if (loading) {
     return (
+      <>
+      <Navbar />
       <section className="min-h-screen bg-[#0f172a] text-white py-20 px-6 md:px-16 flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
       </section>
+      </>
     );
   }
 
   if (error || !data) {
     return (
+      <>
+      <Navbar />
       <section className="min-h-screen bg-[#0f172a] text-white py-20 px-6 md:px-16 flex items-center justify-center">
         <div className="text-center text-gray-400">{error || "Not found"}</div>
       </section>
+      </>
     );
   }
 
@@ -38,6 +45,8 @@ export default function SubCategoryBlogs() {
   const subParts = decodeURIComponent(subCategory || "").split(/\s*>\s*/).filter(Boolean);
 
   return (
+    <>
+    <Navbar />
     <section className="min-h-screen bg-[#0f172a] text-white py-20 px-6 md:px-16">
       <div className="max-w-7xl mx-auto">
         <div className="mb-10">
@@ -106,5 +115,6 @@ export default function SubCategoryBlogs() {
         )}
       </div>
     </section>
+    </>
   );
 }

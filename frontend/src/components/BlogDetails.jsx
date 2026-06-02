@@ -6,6 +6,7 @@ import remarkCallout from "../utils/remarkCallout";
 import { preprocessContent } from "../utils/preprocess";
 import Callout from "./Callout";
 import { getBlog, getBlogs, getGroupedBlogs } from "../services/api";
+import Navbar from "./Navbar";
 
 function slugify(text) {
   return text
@@ -413,17 +414,22 @@ export default function BlogDetails() {
 
   if (loading) {
     return (
+      <>
+      <Navbar />
       <section className="h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
           <span className="text-sm text-gray-500">Loading blog...</span>
         </div>
       </section>
+      </>
     );
   }
 
   if (error || !blog) {
     return (
+      <>
+      <Navbar />
       <section className="h-screen bg-[#0a0a0a] text-white flex flex-col items-center justify-center gap-5">
         <div className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center">
           <svg className="w-7 h-7 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -438,11 +444,14 @@ export default function BlogDetails() {
           Back to Blogs
         </Link>
       </section>
+      </>
     );
   }
 
   return (
-    <div className="h-screen bg-[#020617] text-white flex flex-col overflow-hidden">
+    <>
+    <Navbar />
+    <div className="h-screen bg-[#020617] text-white flex flex-col overflow-hidden pt-16">
       {/* Top bar */}
       <div className="shrink-0 border-b border-white/5 bg-white/[0.02]">
         <div className="max-w-[1600px] mx-auto px-4 md:px-8 flex items-center h-12 gap-4">
@@ -519,5 +528,6 @@ export default function BlogDetails() {
         </aside>
       </div>
     </div>
+    </>
   );
 }

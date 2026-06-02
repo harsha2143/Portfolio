@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { getBlogs } from "../services/api";
+import Navbar from "./Navbar";
 
 function Chevron({ open }) {
   return (
@@ -85,21 +86,29 @@ export default function AllBlogs() {
 
   if (loading) {
     return (
+      <>
+      <Navbar />
       <section className="min-h-screen bg-[#0f172a] text-white py-20 px-6 md:px-16 flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
       </section>
+      </>
     );
   }
 
   if (error) {
     return (
+      <>
+      <Navbar />
       <section className="min-h-screen bg-[#0f172a] text-white py-20 px-6 md:px-16 flex items-center justify-center">
         <div className="text-center text-gray-400">{error}</div>
       </section>
+      </>
     );
   }
 
   return (
+    <>
+    <Navbar />
     <section className="min-h-screen bg-[#030712] text-white py-20 px-6 md:px-16">
       <div className="max-w-7xl mx-auto">
         <div className="mb-16">
@@ -257,5 +266,6 @@ export default function AllBlogs() {
         )}
       </div>
     </section>
+    </>
   );
 }
