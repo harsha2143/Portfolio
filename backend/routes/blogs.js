@@ -28,9 +28,18 @@ router.get("/grouped", async (req, res) => {
       const catBlogs = blogs.filter((b) => b.mainCategory === cat);
       if (catBlogs.length) {
         const subs = {};
-        for (const sub of SUB_CATEGORIES[cat] || []) {
+        const predefinedSubs = SUB_CATEGORIES[cat] || [];
+        for (const sub of predefinedSubs) {
           const subBlogs = catBlogs.filter((b) => b.subCategory === sub);
           if (subBlogs.length) subs[sub] = subBlogs;
+        }
+        // blogs with custom subcategories not in the predefined list
+        const custom = catBlogs.filter(
+          (b) => b.subCategory && b.subCategory !== "" && !predefinedSubs.includes(b.subCategory)
+        );
+        for (const b of custom) {
+          if (!subs[b.subCategory]) subs[b.subCategory] = [];
+          subs[b.subCategory].push(b);
         }
         // uncategorized blogs in this main category
         const uncategorized = catBlogs.filter((b) => !b.subCategory || b.subCategory === "");
@@ -121,8 +130,8 @@ router.get("/admin/:id", auth, async (req, res) => {
 router.post("/", auth, async (req, res) => {
   try {
     const { title, description, content, category, mainCategory, subCategory, readTime, image, published, tags } = req.body;
-    if (!title || !description || !content) {
-      return res.status(400).json({ message: "Title, description, and content are required" });
+    if (!title || !content) {
+      return res.status(400).json({ message: "Title and content are required" });
     }
 
     const slug = title

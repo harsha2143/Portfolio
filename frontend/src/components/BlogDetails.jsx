@@ -2,6 +2,9 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkCallout from "../utils/remarkCallout";
+import { preprocessContent } from "../utils/preprocess";
+import Callout from "./Callout";
 import { getBlog, getBlogs, getGroupedBlogs } from "../services/api";
 
 function slugify(text) {
@@ -12,17 +15,19 @@ function slugify(text) {
 }
 
 function extractTOC(content) {
+  const items = [];
   const headingRegex = /^(#{1,3})\s+(.+)$/gm;
-  const headings = [];
   let match;
   while ((match = headingRegex.exec(content)) !== null) {
-    headings.push({
+    const text = match[2].trim().replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+    items.push({
+      type: "heading",
       level: match[1].length,
-      text: match[2].trim(),
-      id: slugify(match[2].trim()),
+      text,
+      id: slugify(text),
     });
   }
-  return headings;
+  return items;
 }
 
 function getText(children) {
@@ -263,20 +268,44 @@ function BlogContentView({ blog }) {
         prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300
         prose-strong:text-white
         prose-code:text-blue-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-        prose-pre:bg-[#1e293b] prose-pre:border prose-pre:border-white/10 prose-pre:rounded-xl
         prose-li:text-gray-300
         prose-blockquote:border-blue-500 prose-blockquote:text-gray-400
         prose-img:rounded-xl
       ">
         <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
+          remarkPlugins={[remarkGfm, remarkCallout]}
           components={{
+            code({ children, className }) {
+              return <code className={className}>{children}</code>;
+            },
             h1: createHeadingRenderer(1),
             h2: createHeadingRenderer(2),
             h3: createHeadingRenderer(3),
+            pre({ children, ...props }) {
+              const lang = children?.props?.className?.replace("language-", "") || "";
+              return (
+                <div className="relative my-4 rounded-lg overflow-hidden border border-[#30363d]">
+                  {lang && (
+                    <div className="bg-[#161b22] px-4 py-1.5 text-[11px] text-gray-400 border-b border-[#30363d] font-medium">
+                      {lang}
+                    </div>
+                  )}
+                  <pre className="bg-[#0d1117] overflow-x-auto p-4 text-sm leading-relaxed m-0" {...props}>
+                    {children}
+                  </pre>
+                </div>
+              );
+            },
+            blockquote({ className, children, ...props }) {
+              if (className?.startsWith("callout ")) {
+                const type = className.replace("callout callout-", "");
+                return <Callout type={type}>{children}</Callout>;
+              }
+              return <blockquote className={className} {...props}>{children}</blockquote>;
+            },
           }}
         >
-          {blog.content}
+          {preprocessContent(blog.content)}
         </ReactMarkdown>
       </div>
     </article>
@@ -328,7 +357,7 @@ function OnThisPage({ headings }) {
               ? "text-blue-400 bg-blue-500/10 font-medium"
               : "hover:text-gray-200 hover:bg-white/[0.03]"
           }`}
-          style={{ paddingLeft: `${12 + (h.level - 1) * 16}px` }}
+          style={{ paddingLeft: `${12 + (h.level - 1) * 1}px` }}
         >
           {h.text}
         </a>
@@ -474,9 +503,9 @@ export default function BlogDetails() {
         </main>
 
         {/* RIGHT: On This Page — card style, sticky, no scroll */}
-        <aside className="w-56 xl:w-60 shrink-0 hidden lg:block">
+        <aside className="w-52 xl:w-56 shrink-0 hidden lg:block">
           <div className="border border-white/10 rounded-xl overflow-hidden">
-            <div className="px-4 py-3 bg-white/[0.02] border-b border-white/5">
+            <div className="px-6 py-3 bg-white/[0.02] border-b border-white/5">
               <span className="text-xs font-semibold tracking-wider text-gray-500 uppercase">On This Page</span>
             </div>
             <nav className="px-3 py-3">

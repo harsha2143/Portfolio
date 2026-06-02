@@ -2,6 +2,9 @@
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkCallout from "../../utils/remarkCallout";
+import { preprocessContent } from "../../utils/preprocess";
+import Callout from "../Callout";
 import { adminGetBlog, createBlog, updateBlog } from "../../services/api";
 
 const MAIN_CATEGORIES = [
@@ -193,14 +196,13 @@ export default function BlogEditor() {
               </div>
 
               <div>
-                <label className="block text-sm text-gray-400 mb-1.5">Description *</label>
+                <label className="block text-sm text-gray-400 mb-1.5">Description</label>
                 <textarea
                   name="description"
                   value={form.description}
                   onChange={handleChange}
                   rows={3}
                   className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                  required
                 />
               </div>
 
@@ -364,7 +366,7 @@ export default function BlogEditor() {
                   <div className="space-y-6">
                     <header>
                       <h1 className="text-2xl font-bold text-white">{form.title || "Untitled"}</h1>
-                      <p className="text-gray-400 mt-3 text-sm">{form.description || "No description"}</p>
+                      {form.description && <p className="text-gray-400 mt-3 text-sm">{form.description}</p>}
                       <div className="flex flex-wrap items-center gap-3 mt-4 text-xs text-gray-600">
                         <span>{form.readTime}</span>
                       </div>
@@ -375,27 +377,74 @@ export default function BlogEditor() {
                         prose-headings:text-white
                         prose-p:text-gray-300 prose-p:leading-7
                         prose-code:text-blue-300 prose-code:bg-white/5 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-                        prose-pre:bg-[#1e293b] prose-pre:border prose-pre:border-white/10 prose-pre:rounded-lg
                         prose-li:text-gray-300
                         prose-strong:text-white
                         prose-a:text-blue-400
                         prose-blockquote:border-blue-500
                       ">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                          {form.content}
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm, remarkCallout]}
+                          components={{
+                            code({ children, className, ...rest }) {
+                              return <code className={className}>{children}</code>;
+                            },
+                            pre({ children, ...props }) {
+                              const lang = children?.props?.className?.replace("language-", "") || "";
+                              return (
+                                <div className="relative my-4 rounded-lg overflow-hidden border border-[#30363d]">
+                                  {lang && (
+                                    <div className="bg-[#161b22] px-4 py-1.5 text-[11px] text-gray-400 border-b border-[#30363d] font-medium">
+                                      {lang}
+                                    </div>
+                                  )}
+                                  <pre className="bg-[#0d1117] overflow-x-auto p-4 text-sm leading-relaxed m-0" {...props}>
+                                    {children}
+                                  </pre>
+                                </div>
+                              );
+                            },
+                            blockquote({ className, children, ...props }) {
+                              if (className?.startsWith("callout ")) {
+                                const type = className.replace("callout callout-", "");
+                                return <Callout type={type}>{children}</Callout>;
+                              }
+                              return <blockquote className={className} {...props}>{children}</blockquote>;
+                            },
+                          }}
+                        >
+                          {preprocessContent(form.content)}
                         </ReactMarkdown>
                       </div>
                       <div className="hidden lg:block w-48 shrink-0 border-l border-white/10 pl-5">
                         <p className="text-xs text-gray-500 uppercase tracking-wider mb-3">On this page</p>
                         <nav className="space-y-1">
-                          {Array.from(form.content.matchAll(/^(#{1,3})\s+(.+)$/gm)).map((m, i) => (
-                            <div key={i} className={`text-xs ${m[1].length === 1 ? "text-gray-400" : m[1].length === 2 ? "pl-3 text-gray-600" : "pl-6 text-gray-700"}`}>
-                              {m[2].trim()}
-                            </div>
-                          ))}
-                          {!form.content.match(/^#{1,3}\s+.+$/m) && (
-                            <p className="text-xs text-gray-600">No headings found</p>
-                          )}
+                          {(() => {
+                            const items = [];
+                            const headingRegex = /^(#{1,3})\s+(.+)$/gm;
+                            let m;
+                            while ((m = headingRegex.exec(form.content)) !== null) {
+                              items.push({
+                                level: m[1].length,
+                                text: m[2].trim().replace(/\[([^\]]+)\]\([^)]+\)/g, "$1"),
+                              });
+                            }
+                            return items.length
+                              ? items.map((item, i) => (
+                                  <div
+                                    key={i}
+                                    className={`text-xs ${
+                                      item.level === 1
+                                        ? "text-gray-400"
+                                        : item.level === 2
+                                        ? "pl-3 text-gray-600"
+                                        : "pl-6 text-gray-700"
+                                    }`}
+                                  >
+                                    {item.text}
+                                  </div>
+                                ))
+                              : null;
+                          })()}
                         </nav>
                       </div>
                     </div>

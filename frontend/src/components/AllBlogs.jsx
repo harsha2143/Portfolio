@@ -240,7 +240,7 @@ export default function AllBlogs() {
                       {blog.description}
                     </p>
                     <div className="flex flex-wrap items-center gap-3 mt-5 text-sm text-gray-500">
-                      <span>{blog.category}</span>
+                      <span>{blog.mainCategory || "General"}</span>
                       <span className="w-1.5 h-1.5 rounded-full bg-gray-600"></span>
                       <span>{new Date(blog.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long" })}</span>
                       <span className="w-1.5 h-1.5 rounded-full bg-gray-600"></span>

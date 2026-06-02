@@ -136,7 +136,7 @@ export default function AdminDashboard() {
                                     )}
                                   </div>
                                   <p className="text-xs text-gray-600 mt-0.5">
-                                    {blog.category} · {new Date(blog.createdAt).toLocaleDateString()}
+                                    {blog.mainCategory || "General"} · {new Date(blog.createdAt).toLocaleDateString()}
                                   </p>
                                 </div>
                                 <div className="flex items-center gap-2 ml-4 shrink-0">
