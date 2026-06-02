@@ -16,7 +16,7 @@ function slugify(text) {
 
 function extractTOC(content) {
   const items = [];
-  const headingRegex = /^(#{1,3})\s+(.+)$/gm;
+  const headingRegex = /^(#{1,2})\s+(.+)$/gm;
   let match;
   while ((match = headingRegex.exec(content)) !== null) {
     const text = match[2].trim().replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
@@ -168,7 +168,7 @@ function FileTree({ nodes, depth, catOpen, toggleCat, onSelectFile, activeSlug }
               ? "text-gray-300 hover:text-white hover:bg-white/[0.04] font-medium"
               : "text-gray-400 hover:text-gray-200 hover:bg-white/[0.04]"
           }`}
-          style={{ paddingLeft: `${depth * 16 + 4}px` }}
+          style={{ paddingLeft: `${depth * 16 + 12}px` }}
         >
           <Chevron open={isOpen} />
           <FolderIcon open={isOpen} />
@@ -503,7 +503,7 @@ export default function BlogDetails() {
         </main>
 
         {/* RIGHT: On This Page — card style, sticky, no scroll */}
-        <aside className="w-52 xl:w-56 shrink-0 hidden lg:block">
+        <aside className="w-56 xl:w-64 shrink-0 hidden lg:block">
           <div className="border border-white/10 rounded-xl overflow-hidden">
             <div className="px-6 py-3 bg-white/[0.02] border-b border-white/5">
               <span className="text-xs font-semibold tracking-wider text-gray-500 uppercase">On This Page</span>
