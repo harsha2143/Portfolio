@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { href } from "react-router-dom";
 
 const navItems = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Experience", href: "#experience" },
-  { name: "Projects", href: "#projects" },
-  { name: "Skills", href: "#skills" },
-  { name: "Blogs", href: "#Blogs"},
-  { name: "Achievements", href: "#achievements" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/#about" },
+  { name: "Experience", href: "/#experience" },
+  { name: "Projects", href: "/#projects" },
+  { name: "Skills", href: "/#skills" },
+  { name: "Blogs", href: "/blogs" },
+  { name: "Achievements", href: "/#achievements" },
 ];
 
 function Navbar() {
@@ -57,7 +56,7 @@ function Navbar() {
           className="flex items-center flex-shrink-0"
         >
           <a
-            href="#home"
+            href="/"
             className="text-xl sm:text-2xl font-bold text-blue-400 truncate max-w-[150px] sm:max-w-full"
           >
             <span className="block md:hidden">HV</span>
@@ -94,7 +93,7 @@ function Navbar() {
           className="hidden md:block"
         >
           <a
-            href="#contact"
+            href="/#contact"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300 text-sm lg:text-base lg:ml-5"
           >
             Contact Me
@@ -155,7 +154,7 @@ function Navbar() {
                 className="mt-4"
               >
                 <a
-                  href="#contact"
+                  href="/#contact"
                   onClick={() => setIsOpen(false)}
                   className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors duration-300"
                 >

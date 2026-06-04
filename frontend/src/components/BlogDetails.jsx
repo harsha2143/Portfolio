@@ -1,10 +1,14 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkWikiLink from "remark-wiki-link";
 import remarkCallout from "../utils/remarkCallout";
+import remarkHighlight from "../utils/remarkHighlight";
 import { preprocessContent } from "../utils/preprocess";
 import Callout from "./Callout";
+import CodeBlock from "./CodeBlock";
+import Mermaid from "./Mermaid";
 import { getBlog, getBlogs, getGroupedBlogs } from "../services/api";
 import Navbar from "./Navbar";
 
@@ -274,28 +278,25 @@ function BlogContentView({ blog }) {
         prose-img:rounded-xl
       ">
         <ReactMarkdown
-          remarkPlugins={[remarkGfm, remarkCallout]}
+          remarkPlugins={[remarkGfm, remarkCallout, remarkHighlight, [remarkWikiLink, { aliasDivider: "|" }]]}
           components={{
-            code({ children, className }) {
-              return <code className={className}>{children}</code>;
-            },
             h1: createHeadingRenderer(1),
             h2: createHeadingRenderer(2),
             h3: createHeadingRenderer(3),
-            pre({ children, ...props }) {
-              const lang = children?.props?.className?.replace("language-", "") || "";
-              return (
-                <div className="relative my-4 rounded-lg overflow-hidden border border-[#30363d]">
-                  {lang && (
-                    <div className="bg-[#161b22] px-4 py-1.5 text-[11px] text-gray-400 border-b border-[#30363d] font-medium">
-                      {lang}
-                    </div>
-                  )}
-                  <pre className="bg-[#0d1117] overflow-x-auto p-4 text-sm leading-relaxed m-0" {...props}>
-                    {children}
-                  </pre>
-                </div>
-              );
+            code({ children, className, ...props }) {
+              const match = /language-(\w+)/.exec(className || "");
+              if (!match) {
+                return <code className={className} {...props}>{children}</code>;
+              }
+              const lang = match[1];
+              const value = String(children).replace(/\n$/, "");
+              if (lang === "mermaid") {
+                return <Mermaid chart={value} />;
+              }
+              return <CodeBlock language={lang} value={value} />;
+            },
+            pre({ children }) {
+              return <>{children}</>;
             },
             blockquote({ className, children, ...props }) {
               if (className?.startsWith("callout ")) {
@@ -303,6 +304,18 @@ function BlogContentView({ blog }) {
                 return <Callout type={type}>{children}</Callout>;
               }
               return <blockquote className={className} {...props}>{children}</blockquote>;
+            },
+            wikiLink({ node, children }) {
+              const href = node.data?.permalink || node.value;
+              const alias = node.data?.alias || node.value;
+              return (
+                <a
+                  href={href}
+                  className="text-blue-400 underline hover:text-blue-300 transition-colors"
+                >
+                  {alias}
+                </a>
+              );
             },
           }}
         >
@@ -378,14 +391,16 @@ export default function BlogDetails() {
   const [activeBlog, setActiveBlog] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
+    let cancelled = false;
     setError(null);
+
     Promise.all([
       getBlog(slug),
       getBlogs(),
       getGroupedBlogs(),
     ])
       .then(([blogRes, blogsRes, groupedRes]) => {
+        if (cancelled) return;
         const b = blogRes.data;
         setBlog(b);
         setActiveBlog(b);
@@ -393,26 +408,31 @@ export default function BlogDetails() {
         setGrouped(groupedRes.data);
       })
       .catch((err) => {
+        if (cancelled) return;
         if (err.response?.status === 404) setError("Blog not found");
         else setError("Failed to load blog");
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => { cancelled = true; };
   }, [slug]);
 
   const fileTree = useMemo(() => buildFileTree(grouped, allBlogs), [grouped, allBlogs]);
   const headings = useMemo(() => activeBlog ? extractTOC(activeBlog.content) : [], [activeBlog]);
 
+  const navigate = useNavigate();
+
   const handleSelectFile = useCallback((fileBlog) => {
-    getBlog(fileBlog.slug)
-      .then((res) => setActiveBlog(res.data))
-      .catch(() => {});
-  }, []);
+    navigate(`/blog/${fileBlog.slug}`);
+  }, [navigate]);
 
   const toggleCat = useCallback((key) => {
     setCatOpen((p) => ({ ...p, [key]: p[key] === false ? true : false }));
   }, []);
 
-  if (loading) {
+  if (loading && !blog) {
     return (
       <>
       <Navbar />

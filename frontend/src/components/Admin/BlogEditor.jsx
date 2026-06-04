@@ -2,9 +2,13 @@
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkWikiLink from "remark-wiki-link";
 import remarkCallout from "../../utils/remarkCallout";
+import remarkHighlight from "../../utils/remarkHighlight";
 import { preprocessContent } from "../../utils/preprocess";
 import Callout from "../Callout";
+import CodeBlock from "../CodeBlock";
+import Mermaid from "../Mermaid";
 import { adminGetBlog, createBlog, updateBlog } from "../../services/api";
 
 const MAIN_CATEGORIES = [
@@ -383,25 +387,22 @@ export default function BlogEditor() {
                         prose-blockquote:border-blue-500
                       ">
                         <ReactMarkdown
-                          remarkPlugins={[remarkGfm, remarkCallout]}
+                          remarkPlugins={[remarkGfm, remarkCallout, remarkHighlight, [remarkWikiLink, { aliasDivider: "|" }]]}
                           components={{
-                            code({ children, className, ...rest }) {
-                              return <code className={className}>{children}</code>;
+                            code({ children, className, ...props }) {
+                              const match = /language-(\w+)/.exec(className || "");
+                              if (!match) {
+                                return <code className={className} {...props}>{children}</code>;
+                              }
+                              const lang = match[1];
+                              const value = String(children).replace(/\n$/, "");
+                              if (lang === "mermaid") {
+                                return <Mermaid chart={value} />;
+                              }
+                              return <CodeBlock language={lang} value={value} />;
                             },
-                            pre({ children, ...props }) {
-                              const lang = children?.props?.className?.replace("language-", "") || "";
-                              return (
-                                <div className="relative my-4 rounded-lg overflow-hidden border border-[#30363d]">
-                                  {lang && (
-                                    <div className="bg-[#161b22] px-4 py-1.5 text-[11px] text-gray-400 border-b border-[#30363d] font-medium">
-                                      {lang}
-                                    </div>
-                                  )}
-                                  <pre className="bg-[#0d1117] overflow-x-auto p-4 text-sm leading-relaxed m-0" {...props}>
-                                    {children}
-                                  </pre>
-                                </div>
-                              );
+                            pre({ children }) {
+                              return <>{children}</>;
                             },
                             blockquote({ className, children, ...props }) {
                               if (className?.startsWith("callout ")) {
@@ -409,6 +410,18 @@ export default function BlogEditor() {
                                 return <Callout type={type}>{children}</Callout>;
                               }
                               return <blockquote className={className} {...props}>{children}</blockquote>;
+                            },
+                            wikiLink({ node, children }) {
+                              const href = node.data?.permalink || node.value;
+                              const alias = node.data?.alias || node.value;
+                              return (
+                                <a
+                                  href={href}
+                                  className="text-blue-400 underline hover:text-blue-300 transition-colors"
+                                >
+                                  {alias}
+                                </a>
+                              );
                             },
                           }}
                         >
