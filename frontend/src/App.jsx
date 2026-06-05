@@ -22,8 +22,8 @@ import BlogEditor from "./components/Admin/BlogEditor";
 
 // Metadata object
 const metadata = {
-  title: "Harshavardhan's Portfolio",
-  description: "Full Stack Developer",
+  title: "Harshavardhan's Portfolio | Full Stack Developer",
+  description: "Welcome to my professional portfolio. I am a Full Stack Developer passionate about building modern, high-performance web applications using the MERN stack.",
 };
 
 // Home Page Component
@@ -82,6 +82,24 @@ function App() {
     }
 
     metaDescription.content = metadata.description;
+
+    // Dynamically initialize Google Analytics 4 (GA4) if measurement ID is provided
+    const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+    if (gaId) {
+      // Create and inject the GA script tag
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+      document.head.appendChild(script);
+
+      // Initialize the dataLayer and gtag function
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function () {
+        window.dataLayer.push(arguments);
+      };
+      window.gtag("js", new Date());
+      window.gtag("config", gaId);
+    }
   }, []);
 
   return (
