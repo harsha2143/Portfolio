@@ -11,11 +11,32 @@ function Projects() {
       githubLink: "https://github.com/harsha2143/imagino",
     },
     {
+      title: "ToxiGuard-AI",
+      description: "Final Year Project focused on developing an AI-powered system that detects toxic language and rewrites it into constructive, respectful communication using advanced transformer-based NLP models, promoting healthier and more positive digital interactions.",
+      tags: ["JavaScript", "Node.js", "Express.js", "MongoDB", 'HTML5', 'CSS3'],
+      liveLink: "",
+      githubLink: "https://github.com/harsha2143/ToxiGuard-AI",
+    },
+    {
+      title: "Club-Website_Template",
+      description: "A modern and responsive website for the SRKR Coding Club, featuring event updates, project showcases, team information, and club activities. Designed to foster collaboration, innovation, and engagement within the student developer community.",
+      tags: ["JavaScript", "Node.js", "Express.js", "MongoDB", "React.js"],
+      liveLink: "https://club-website-template.vercel.app/",
+      githubLink: "https://github.com/harsha2143/Club-Website_Template",
+    },
+    {
       title: "CodeQuest",
       description: "A POTD platform that offers daily coding challenges tailored for college students, promoting consistent problem-solving. It features multi-platform progress tracking, streak monitoring, leaderboards, and insightful user analytics to boost engagement and learning.",
       tags: ["Typescript", "Node.js", "MongoDB", "Express.js", "Tailwind CSS"],
       liveLink: "https://codequest.srkrcodingclub.in/",
-      githubLink: "https://github.com/codevoid048/codequest",
+      githubLink: "https://github.com/harsha2143/codequest",
+    },
+    {
+      title: "SkillSphere",
+      description: "Designed and built during Smart India Hackathon 2024, SkillSphere is a comprehensive Learning Management System designed to enhance digital learning by providing seamless course delivery, progress monitoring, and data-driven insights for effective education management.",
+      tags: ["JavaScript", "Node.js", "Express.js", "Mysql", 'HTML5', 'CSS3','ejs'],
+      liveLink: "",
+      githubLink: "https://github.com/harsha2143/SkillSphere",
     },
     {
       title: "Blog Post",
@@ -24,6 +45,7 @@ function Projects() {
       liveLink: "",
       githubLink: "https://github.com/harsha2143/Blog-post",
     },
+
 
   ];
 
